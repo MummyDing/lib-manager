@@ -28,22 +28,19 @@ import java.util.List;
 
 public class AutoStartFragment extends BaseFragment {
 
-
     Context mContext;
     public static final int REFRESH_BT = 111;
     private static final String ARG_POSITION = "position";
     private int position; // 0:普通软件，2 系统软件
-    AutoStartAdapter mAutoStartAdapter;
     private View mRootView;
+    private AutoStartAdapter mAutoStartAdapter;
+    private ListView mListView;
+    private LinearLayout mLinearLayoutBottom;
 
-    ListView listview;
-
-    LinearLayout bottom_lin;
-
-    Button disableButton;
-    TextView topText;
-    List<AutoStartInfo> isSystemAuto = null;
-    List<AutoStartInfo> noSystemAuto = null;
+    private Button mDisableButton;
+    private TextView mTopText;
+    private List<AutoStartInfo> isSystemAuto = null;
+    private List<AutoStartInfo> noSystemAuto = null;
     private int canDisableCom;
 
 
@@ -67,10 +64,10 @@ public class AutoStartFragment extends BaseFragment {
     }
 
     private void findViewsById() {
-        listview = (ListView) bindView(R.id.listview);
-        bottom_lin = (LinearLayout) bindView(R.id.bottom_lin);
-        disableButton = (Button) bindView(R.id.disable_button);
-        topText = (TextView) bindView(R.id.topText);
+        mListView = (ListView) bindView(R.id.listview);
+        mLinearLayoutBottom = (LinearLayout) bindView(R.id.bottom_lin);
+        mDisableButton = (Button) bindView(R.id.disable_button);
+        mTopText = (TextView) bindView(R.id.topText);
     }
 
     private View bindView(int id) {
@@ -80,8 +77,6 @@ public class AutoStartFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-
         mRootView = inflater.inflate(R.layout.fragment_auto_start, container, false);
         mContext = getActivity();
         findViewsById();
@@ -92,7 +87,6 @@ public class AutoStartFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         fillData();
     }
 
@@ -102,7 +96,7 @@ public class AutoStartFragment extends BaseFragment {
     }
 
     private void init() {
-        disableButton.setOnClickListener(new View.OnClickListener() {
+        mDisableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClickDisable();
@@ -142,10 +136,10 @@ public class AutoStartFragment extends BaseFragment {
     private void fillData() {
 
         if (position == 0) {
-            topText.setText("禁止下列应用自启,可提升运行速度");
+            mTopText.setText("禁止下列应用自启,可提升运行速度");
 
         } else {
-            topText.setText("禁止系统核心应用自启,将会影响手机的正常使用,请谨慎操作");
+            mTopText.setText("禁止系统核心应用自启,将会影响手机的正常使用,请谨慎操作");
 
         }
 
@@ -165,11 +159,11 @@ public class AutoStartFragment extends BaseFragment {
 
         if (position == 0) {
             mAutoStartAdapter = new AutoStartAdapter(mContext, noSystemAuto, mHandler);
-            listview.setAdapter(mAutoStartAdapter);
+            mListView.setAdapter(mAutoStartAdapter);
             refeshButoom();
         } else {
             mAutoStartAdapter = new AutoStartAdapter(mContext, isSystemAuto, null);
-            listview.setAdapter(mAutoStartAdapter);
+            mListView.setAdapter(mAutoStartAdapter);
         }
     }
 
@@ -182,10 +176,10 @@ public class AutoStartFragment extends BaseFragment {
                 }
             }
             if (canDisableCom > 0) {
-                bottom_lin.setVisibility(View.VISIBLE);
-                disableButton.setText("可优化" + canDisableCom + "款");
+                mLinearLayoutBottom.setVisibility(View.VISIBLE);
+                mDisableButton.setText("可优化" + canDisableCom + "款");
             } else {
-                bottom_lin.setVisibility(View.GONE);
+                mLinearLayoutBottom.setVisibility(View.GONE);
             }
         }
 

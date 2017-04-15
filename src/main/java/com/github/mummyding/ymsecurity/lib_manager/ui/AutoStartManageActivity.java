@@ -1,7 +1,6 @@
 package com.github.mummyding.ymsecurity.lib_manager.ui;
 
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
@@ -27,18 +26,10 @@ import com.github.mummyding.ymsecurity.lib_manager.fragment.WeakFragmentPagerAda
 
 public class AutoStartManageActivity extends BaseSwipeBackActivity {
 
-    ActionBar ab;
-
-
-    Resources res;
-
-
-    SlidingTab tabs;
-
-    ViewPager pager;
-
-    private AutoStartPagerAdapter adapter;
-
+    private Resources mResourse;
+    private SlidingTab mTabs;
+    private ViewPager mViewPager;
+    private AutoStartPagerAdapter mPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,29 +38,26 @@ public class AutoStartManageActivity extends BaseSwipeBackActivity {
         initView();
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setLogo(getResources().getDrawable(R.drawable.transparent));
-          applyKitKatTranslucency();
+//          applyKitKatTranslucency();
 
+        mResourse = getResources();
+        mPagerAdapter = new AutoStartPagerAdapter(getSupportFragmentManager());
 
-        res = getResources();
-        adapter = new AutoStartPagerAdapter(getSupportFragmentManager());
-
-        pager.setAdapter(adapter);
+        mViewPager.setAdapter(mPagerAdapter);
 
         int pageMargin = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, 4, getResources()
                         .getDisplayMetrics());
-        pager.setPageMargin(pageMargin);
+        mViewPager.setPageMargin(pageMargin);
 
-        tabs.setViewPager(pager);
+        mTabs.setViewPager(mViewPager);
         setTabsValue();
-
     }
 
     private void initView() {
-        tabs = (SlidingTab) bindView(R.id.tabs);
-        pager = (ViewPager) bindView(R.id.pagerFragmentTask);
+        mTabs = (SlidingTab) bindView(R.id.tabs);
+        mViewPager = (ViewPager) bindView(R.id.pagerFragmentTask);
     }
-
 
     private View bindView(int id) {
         return findViewById(id);
@@ -78,25 +66,25 @@ public class AutoStartManageActivity extends BaseSwipeBackActivity {
     private void setTabsValue() {
         DisplayMetrics dm = getResources().getDisplayMetrics();
         // 设置Tab是自动填充满屏幕的
-        tabs.setShouldExpand(true);
+        mTabs.setShouldExpand(true);
         // 设置Tab的分割线是透明的
-        tabs.setDividerColor(Color.TRANSPARENT);
+        mTabs.setDividerColor(Color.TRANSPARENT);
         // 设置Tab底部线的高度
-        tabs.setUnderlineHeight((int) TypedValue.applyDimension(
+        mTabs.setUnderlineHeight((int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, 1, dm));
         // 设置Tab Indicator的高度
-        tabs.setIndicatorHeight((int) TypedValue.applyDimension(
+        mTabs.setIndicatorHeight((int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, 3, dm));
         // 设置Tab标题文字的大小
-        tabs.setTextSize((int) TypedValue.applyDimension(
+        mTabs.setTextSize((int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP, 16, dm));
         // 设置Tab Indicator的颜色
-        tabs.setTextColor(Color.parseColor("#ffffff"));
-        tabs.setIndicatorColor(Color.parseColor("#ffffff"));
+        mTabs.setTextColor(Color.parseColor("#ffffff"));
+        mTabs.setIndicatorColor(Color.parseColor("#ffffff"));
         // 设置选中Tab文字的颜色 (这是我自定义的一个方法)
-        tabs.setSelectedTextColor(Color.parseColor("#ffffff"));
+        mTabs.setSelectedTextColor(Color.parseColor("#ffffff"));
         // 取消点击Tab时的背景色
-        tabs.setTabBackground(0);
+        mTabs.setTabBackground(0);
 
     }
 
@@ -118,7 +106,6 @@ public class AutoStartManageActivity extends BaseSwipeBackActivity {
             mTintManager.setTintDrawable(UIElementsHelper
                     .getGeneralActionBarBackground(this));
 
-
             getActionBar().setBackgroundDrawable(
                     UIElementsHelper.getGeneralActionBarBackground(this));
 
@@ -128,7 +115,6 @@ public class AutoStartManageActivity extends BaseSwipeBackActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
@@ -157,7 +143,6 @@ public class AutoStartManageActivity extends BaseSwipeBackActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // return SuperAwesomeCardFragment.newInstance(position);return
             AutoStartFragment fragment = new AutoStartFragment();
             Bundle bundle = new Bundle();
 
@@ -166,9 +151,7 @@ public class AutoStartManageActivity extends BaseSwipeBackActivity {
             saveFragment(fragment);
 
             return fragment;
-
         }
-
     }
 
 

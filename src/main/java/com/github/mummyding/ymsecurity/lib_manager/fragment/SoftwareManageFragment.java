@@ -38,15 +38,14 @@ public class SoftwareManageFragment extends BaseFragment {
     public static final int REFRESH_BT = 111;
     private static final String ARG_POSITION = "position";
     private int position; // 0:应用软件，2 系统软件
-    SoftwareManageAdapter mAutoStartAdapter;
+    private SoftwareManageAdapter mAutoStartAdapter;
 
-    ListView listview;
-
-    TextView topText;
-    List<AppInfo> userAppInfos = null;
-    List<AppInfo> systemAppInfos = null;
-    View mProgressBar;
-    TextView mProgressBarText;
+    private ListView listview;
+    private TextView topText;
+    private List<AppInfo> userAppInfos = null;
+    private List<AppInfo> systemAppInfos = null;
+    private View mProgressBar;
+    private TextView mProgressBarText;
 
     private Method mGetPackageSizeInfoMethod;
 
@@ -57,10 +56,7 @@ public class SoftwareManageFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         position = getArguments().getInt(ARG_POSITION);
-
-
     }
 
     private void initViews() {
@@ -78,8 +74,6 @@ public class SoftwareManageFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-
         mRootView = inflater.inflate(R.layout.fragment_software, container, false);
         initViews();
         mContext = getActivity();

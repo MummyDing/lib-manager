@@ -47,8 +47,6 @@ public class SoftwareManageActivity extends BaseSwipeBackActivity {
         initViews();
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setLogo(getResources().getDrawable(R.drawable.transparent));
-        //  applyKitKatTranslucency();
-
 
         res = getResources();
         adapter = new SoftwareManagePagerAdapter(getSupportFragmentManager());
