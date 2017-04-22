@@ -38,7 +38,6 @@ public class AutoStartManageActivity extends BaseSwipeBackActivity {
         initView();
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setLogo(getResources().getDrawable(R.drawable.transparent));
-//          applyKitKatTranslucency();
 
         mResourse = getResources();
         mPagerAdapter = new AutoStartPagerAdapter(getSupportFragmentManager());
@@ -88,31 +87,6 @@ public class AutoStartManageActivity extends BaseSwipeBackActivity {
 
     }
 
-
-    /**
-     * Apply KitKat specific translucency.
-     */
-
-    private void applyKitKatTranslucency() {
-
-        // KitKat translucent navigation/status bar.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-            SystemBarTintManager mTintManager = new SystemBarTintManager(this);
-            mTintManager.setStatusBarTintEnabled(true);
-            mTintManager.setNavigationBarTintEnabled(true);
-            // mTintManager.setTintColor(0xF00099CC);
-
-            mTintManager.setTintDrawable(UIElementsHelper
-                    .getGeneralActionBarBackground(this));
-
-            getActionBar().setBackgroundDrawable(
-                    UIElementsHelper.getGeneralActionBarBackground(this));
-
-        }
-
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -154,17 +128,4 @@ public class AutoStartManageActivity extends BaseSwipeBackActivity {
         }
     }
 
-
-    @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
-    }
 }

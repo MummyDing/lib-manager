@@ -27,15 +27,9 @@ import com.github.mummyding.ymsecurity.lib_manager.fragment.WeakFragmentPagerAda
 
 public class SoftwareManageActivity extends BaseSwipeBackActivity {
 
-    ActionBar ab;
-
-
-    Resources res;
-
-
-    SlidingTab tabs;
-
-    ViewPager pager;
+    private Resources res;
+    private SlidingTab tabs;
+    private ViewPager pager;
 
     private SoftwareManagePagerAdapter adapter;
 
@@ -98,32 +92,6 @@ public class SoftwareManageActivity extends BaseSwipeBackActivity {
 
     }
 
-
-    /**
-     * Apply KitKat specific translucency.
-     */
-
-    private void applyKitKatTranslucency() {
-
-        // KitKat translucent navigation/status bar.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-            SystemBarTintManager mTintManager = new SystemBarTintManager(this);
-            mTintManager.setStatusBarTintEnabled(true);
-            mTintManager.setNavigationBarTintEnabled(true);
-            // mTintManager.setTintColor(0xF00099CC);
-
-            mTintManager.setTintDrawable(UIElementsHelper
-                    .getGeneralActionBarBackground(this));
-
-
-            getActionBar().setBackgroundDrawable(
-                    UIElementsHelper.getGeneralActionBarBackground(this));
-
-        }
-
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // TODO Auto-generated method stub
@@ -168,17 +136,4 @@ public class SoftwareManageActivity extends BaseSwipeBackActivity {
 
     }
 
-
-    @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
-    }
 }

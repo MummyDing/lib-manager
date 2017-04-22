@@ -30,15 +30,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-// TODO: Auto-generated Javadoc
-
 public class BootStartUtils {
 
     private static final String BOOT_START_PERMISSION = "android.permission.RECEIVE_BOOT_COMPLETED";
-    // private Context mContext;
 
     public BootStartUtils(Context context) {
-        //   mContext = context;
     }
 
     public static List<AutoStartInfo> fetchStartAutoApps(Context mContext) {
